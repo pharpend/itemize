@@ -58,7 +58,7 @@ executable itemize
   
   -- Other library packages from which modules are imported.
   build-depends:
-      base >=4.7 && <4.8
+      base >=4 && <5
     , blaze-html >=0.7
   
   -- Directories containing source files.
