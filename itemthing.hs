@@ -4,11 +4,18 @@
 import           Control.Applicative
 import           Data.Monoid
 import           Data.Traversable
+import           Paths_itemize
 import           System.IO
 import           Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 import           Text.Blaze.Html.Renderer.String
+
+topStr :: IO String
+topStr = getDataFileName "top.html" >>= readFile
+
+bottomStr :: IO String
+bottomStr = getDataFileName "bottom.html" >>= readFile
 
 doSeason :: Int -> IO H.Html
 doSeason season = do
@@ -43,4 +50,6 @@ main = do
           then fail "not enough seasons"
           else return ()
   seasons <- mconcat <$> forM [1 .. numSeasons] doSeason
+  putStr =<< topStr
   putStr $ renderHtml seasons
+  putStr =<< bottomStr
